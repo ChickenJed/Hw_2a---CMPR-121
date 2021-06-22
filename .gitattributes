@@ -1,2 +1,118 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+// Attached: HW_2a, 2b, 2c, 2d
+// ======================================================
+// Program: HW_2a
+// ======================================================
+// Programmer: Christian Verry
+// Class: CS CMPR 121
+// ======================================================
+
+#include <iostream>
+using namespace std;
+
+void getScores(double testScores[], int numItems);
+void getMenu();
+char getChoice();
+void displayResult(char menuChoice, double testScores[], int numItems);
+
+
+int main()
+{
+	cout.setf(ios::fixed);
+	cout.setf(ios::showpoint);
+	cout.precision(2);
+
+	const int SIZE = 5;
+	double testScores[SIZE] = { 0 };
+	char menuChoice;
+
+	getScores(testScores, SIZE);
+	system("CLS");
+
+	getMenu();
+	menuChoice = getChoice();
+	system("CLS");
+
+	displayResult(menuChoice, testScores, SIZE);
+
+	return 0;
+}
+
+
+/* displayResult function takes in menuChoice and testScore[], if
+menu choice was 'A,' it takes the data from tesScores[] and adds
+all the scores and divides by the amount of tests to get the average
+which is then displayed. If menu choice is anything else than 'A,'
+then the test scores entered will be displayed.
+*/
+void displayResult(char menuChoice, double testScores[], int numItems)
+{
+	if (menuChoice == 'A')
+	{
+		double sum = 0.0;
+		double testAvg = 0.0;
+		for (int i = 0; i < numItems; i++)
+		{
+			sum += testScores[i];
+			testAvg = sum / numItems;
+		}
+		cout << "The average is " << testAvg << '\n';
+	}
+	else
+	{
+		cout << "Test scores entered:\n";
+
+		for (int i = 0; i < numItems; i++)
+		{
+			cout << "#" << i + 1 << ": " << testScores[i] << '\n';
+		}
+	}
+}
+
+
+/* getChoice function asks user for a char input
+as a choice displayed from the getMenu function.
+user input is returned to main.
+*/
+char getChoice()
+{
+	char menuChoice;
+
+	do
+	{
+		cout << "\n\nEnter your choice:	";
+		cin >> menuChoice;
+		menuChoice = toupper(menuChoice);
+		if (menuChoice != 'A' && menuChoice != 'B')
+			cout << "	Error: invalid input.\n";
+		else
+			break;
+	} while (true);
+
+	return menuChoice;
+}
+
+
+// getMenu function displays menu
+void getMenu()
+{
+	cout << "A.)	Calculate the average of the test scores.\n";
+	cout << "B.)	Display all test scores";
+}
+
+
+/* getScores function asks the user the to enter 5 test scores
+to fill an array
+*/
+void getScores(double testScores[], int numItems)
+{
+	cout << "Enter 5 test scores:\n";
+
+	for (int i = 0; i < numItems; i++)
+	{
+		cin >> testScores[i];
+	}
+
+	return;
+}
